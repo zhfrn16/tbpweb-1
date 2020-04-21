@@ -15,7 +15,7 @@ class CreateInternshipsTable extends Migration
     {
         Schema::create('internships', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('internship_proposal_id');
+            $table->unsignedBigInteger('internship_proposal_id');
             $table->unsignedBigInteger('student_id');
             $table->integer('status')->default(0);
             $table->string('field')->nullable();

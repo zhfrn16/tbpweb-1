@@ -15,7 +15,7 @@ class CreateInternshipAudiencesTable extends Migration
     {
         Schema::create('internship_audiences', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('intenship_id');
+            $table->unsignedBigInteger('internship_id');
             $table->unsignedBigInteger('student_id');
             $table->timestamps();
 

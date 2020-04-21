@@ -15,7 +15,7 @@ class CreateInternshipProposalsTable extends Migration
     {
         Schema::create('internship_proposals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('agency_id');
+            $table->unsignedBigInteger('agency_id');
             $table->text('background')->nullable();
             $table->text('plan')->nullable();
             $table->date('start_at')->nullable();
