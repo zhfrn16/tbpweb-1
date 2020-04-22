@@ -15,7 +15,7 @@ class CreateInternshipLogbooksTable extends Migration
     {
         Schema::create('internship_logbooks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('internship_id');
+            $table->unsignedBigInteger('internship_id');
             $table->date('date')->nullable();
             $table->text('activity')->nullable();
             $table->text('notes')->nullable();
