@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Frontend\Intern;
 
 use App\Http\Controllers\Controller;
+use App\Models\Internship;
 use Illuminate\Http\Request;
 
 class MyInternProposalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $user_id = auth()->user()->id;
+        $internships = Internship::where('student_id', $user_id)->get();
+
+        return view('klp01.proposals.index', compact('internships'));
     }
 
     /**
