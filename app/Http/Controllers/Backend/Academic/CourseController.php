@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Academic;
 
 use App\Http\Controllers\Controller;
+use App\Models\Curriculum;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -17,14 +18,11 @@ class CourseController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $curriculums = Curriculum::all()->pluck('name', 'id');
+
+        return view('klp09.courses.create', compact('curriculums'));
     }
 
     /**
