@@ -25,6 +25,8 @@ class InternshipProposal extends Model
         return $this->belongsTo(InternshipAgency::class);
     }
 
+    
+
     public function members()
     {
         return $this->hasMany(Internship::class);

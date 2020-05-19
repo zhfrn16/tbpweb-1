@@ -92,9 +92,9 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Frontend', 'as' => 'fronte
 //    Route::resource('myintern-acceptances', 'MyInternAcceptanceController')->only(['edit', 'update']);
 
         /** K02 - MHS */
-//    Route::resource('myinterns', 'MyInternController')->only(['index', 'show']);
-//    Route::resource('myintern-seminars', 'MyInternSeminarController')->except(['index', 'destroy']);
-//    Route::resource('myintern-seminars.audiences', 'MyInternSeminarAudience')->only(['create', 'store', 'destroy']);
+    Route::resource('myinterns', 'MyInternController')->only(['index', 'show']);
+    Route::resource('myintern-seminars', 'MyInternSeminarController')->except(['index', 'destroy']);
+    Route::resource('myintern-seminars.audiences', 'MyInternSeminarAudience')->only(['create', 'store', 'destroy']);
 
         /** K03 - MHS */
 //    Route::resource('myinterns', 'MyInternController')->except(['destroy', 'create', 'store']);
