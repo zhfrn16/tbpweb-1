@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
 
-
 class MyInternController extends Controller
 {
     /**
