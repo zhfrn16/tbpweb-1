@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend\Intern;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\InternshipAudience;
 
 class MyInternSeminarAudience extends Controller
 {
@@ -14,7 +16,7 @@ class MyInternSeminarAudience extends Controller
      */
     public function index()
     {
-        //
+       //
     }
 
     /**
@@ -22,9 +24,17 @@ class MyInternSeminarAudience extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create($id)
+    {   
+        $datas = DB::table('internships')->where('id',$id)->get();
+        $audiences = DB::table('students')
+        ->join('internship_audiences', 'internship_audiences.student_id',
+        '=', 'students.id')
+        ->where('internship_audiences.internship_id',$id)
+        ->orderBy('internship_audiences.created_at','desc')
+        ->get();
+        $students = DB::table('students')->get();
+        return view('klp02.create_audience',compact('datas','students','audiences'));
     }
 
     /**
@@ -35,7 +45,15 @@ class MyInternSeminarAudience extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $posts = new InternshipAudience;
+        $posts->internship_id = $request->input('internship_id');
+        $posts->student_id = $request->input('student_id');
+        $posts->save();
+        
+        return back();
+        
+        
     }
 
     /**
@@ -80,6 +98,7 @@ class MyInternSeminarAudience extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('internship_audience')->where('internship_id',$id)->delete();
+        return back();
     }
 }
