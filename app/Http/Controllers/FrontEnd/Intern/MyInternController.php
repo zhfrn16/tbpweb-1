@@ -69,7 +69,7 @@ class MyInternController extends Controller
         $kpid=$id;
         $data = Internship::where('id', $id)->get();
     
-       return view('klp02.showDetailKP',compact('data','kpid'));
+        return view('klp02.showDetailKP',compact('data','kpid'));
     }
 
     /**
