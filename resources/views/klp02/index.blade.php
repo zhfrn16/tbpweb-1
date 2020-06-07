@@ -57,6 +57,7 @@
                     <th>Instansi/Perusahaan</th>
                     <th>Alamat</th>
                     <th>Tanggal di buat</th>
+                    <th>Status</th>
                     <th>Lihat</th>
                 </tr>
                 </thead>
@@ -72,6 +73,7 @@
                                 <td>{{$row->name}}</td>
                                 <td>{{$row->address}}</td>
                                 <td>{{$row->created_at}}</td>
+                                <td>{{$status_internship[$row->status]}}</td>
                                 <td>
                                     {!! cui()->btn_view(route('frontend.myinterns.show', [$row->id])) !!}
                                 </td>
