@@ -17,6 +17,11 @@ class Room extends Model
 
     public function building()
     {
-        return $this->belongsTo(Building::class);
+        return $this->belongsTo(Building::class,'building_id','id');
     }
+    public function internship()
+    {
+        return $this->hasMany(Internship::Class, 'seminar_room_id', 'id');
+    }
+
 }

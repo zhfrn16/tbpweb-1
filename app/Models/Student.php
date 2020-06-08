@@ -39,9 +39,12 @@ class Student extends Model
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'department_id');
+        return $this->belongsTo(Department::class, 'department_id', 'id');
     }
-
+    public function studentsemester()
+    {
+        return $this->hasMany(StudentSemester::class, 'student_id', 'id');
+    }
     /** Extended Attribute */
 
     public function getEmailAttribute($value)
@@ -118,4 +121,5 @@ class Student extends Model
         }
         return 'img/default_user_' . $key . '.png';
     }
+    
 }

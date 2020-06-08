@@ -28,9 +28,10 @@ class MyInternController extends Controller
         '=', 'internship_proposals.id')
         ->join('internship_agencies', 'internship_proposals.agency_id', '=',
         'internship_agencies.id')
-        ->select('internships.id','internships.title', 'internships.created_at', 'internship_agencies.name', 'internship_agencies.address')
+
         ->get();
-        return view('klp02.index',compact('data'));
+        $status_internship=config('seminar.status_internship');
+        return view('klp02.index',compact('data','status_internship'));
 
     }
 
@@ -67,9 +68,7 @@ class MyInternController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $kpid=$id;
-        $data = Internship::where('id', $id)->get();
-    
-        return view('klp02.showDetailKP',compact('data','kpid'));
+
     }
 
     /**
