@@ -64,7 +64,7 @@
                                     </div>
                     
                                     <div class="form-group">
-                                        <label class="form-label" for="field">Dosen Pembimbing  &emsp;&emsp;&emsp;&nbsp; :&nbsp;{{$row->field}} </label>
+                                        <label class="form-label" for="field">Dosen Pembimbing  &emsp;&emsp;&emsp;&nbsp; :&nbsp;{{$row->advisor_id}} </label>
 
                                     </div>
 
