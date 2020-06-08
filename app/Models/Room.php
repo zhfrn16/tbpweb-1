@@ -19,9 +19,6 @@ class Room extends Model
     {
         return $this->belongsTo(Building::class,'building_id','id');
     }
-    public function internship()
-    {
-        return $this->hasMany(Internship::Class, 'seminar_room_id', 'id');
-    }
+
 
 }
