@@ -47,6 +47,7 @@
         <main class="c-main">
             <div class="container-fluid">
                 <div class="fade-in">
+                    @include('klp02.alert')
                     @yield('content')
                 </div>
             </div>
@@ -55,7 +56,7 @@
     </div>
 
     @include('layouts.partials.footer')
-
+    
 </div>
 
 <!-- CoreUI and necessary plugins-->
