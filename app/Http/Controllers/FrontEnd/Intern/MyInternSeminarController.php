@@ -52,7 +52,7 @@ class MyInternSeminarController extends Controller
 
     /**
      * Display the specified resource.
-     *
+     * Test
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
