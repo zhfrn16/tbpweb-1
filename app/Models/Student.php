@@ -42,6 +42,10 @@ class Student extends Model
         return $this->belongsTo(Department::class, 'department_id');
     }
 
+    public function internship()
+    {
+        return $this->hasMany(Internship::class);
+    }   
     /** Extended Attribute */
 
     public function getEmailAttribute($value)

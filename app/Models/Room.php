@@ -19,4 +19,13 @@ class Room extends Model
     {
         return $this->belongsTo(Building::class);
     }
+
+    public function internship()
+    {
+        return $this->hasMany(Internship::class);
+    }   
+
+
+
+
 }

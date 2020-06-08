@@ -91,6 +91,13 @@
             </a>
         </li>
 
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('frontend.myinterns.index') }}">
+                <i class="cil-contact c-sidebar-nav-icon"></i>
+                List Seminar KP
+            </a>
+        </li>
+
     </ul>
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"
             data-class="c-sidebar-unfoldable"></button>

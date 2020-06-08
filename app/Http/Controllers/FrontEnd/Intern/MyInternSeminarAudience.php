@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Frontend\Intern;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use App\Models\Internship;
+use App\Models\Proposal;
 
 class MyInternSeminarAudience extends Controller
 {
@@ -24,7 +28,12 @@ class MyInternSeminarAudience extends Controller
      */
     public function create()
     {
-        //
+        
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+
+
+        return view('klp02.createaudience');
     }
 
     /**
@@ -35,7 +44,7 @@ class MyInternSeminarAudience extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
