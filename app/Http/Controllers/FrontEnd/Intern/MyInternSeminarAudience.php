@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Frontend\Intern;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
-use App\Models\Internship;
-use App\Models\Proposal;
+
 
 class MyInternSeminarAudience extends Controller
 {
@@ -18,7 +15,7 @@ class MyInternSeminarAudience extends Controller
      */
     public function index()
     {
-        //
+       //
     }
 
     /**
@@ -26,14 +23,7 @@ class MyInternSeminarAudience extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        
-        $user_id = auth()->user()->id;
-        $user = User::find($user_id);
 
-
-        return view('klp02.createaudience');
     }
 
     /**
@@ -45,6 +35,7 @@ class MyInternSeminarAudience extends Controller
     public function store(Request $request)
     {
         
+
     }
 
     /**
@@ -87,8 +78,12 @@ class MyInternSeminarAudience extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,$student_id)
     {
-        //
+        
+        DB::table('internship_audiences')->where('internship_id',$id)
+        ->where('student_id', $student_id)->delete();
+        
+        return back()->with('delete', 'Data Berhasil Dihapus!');
     }
 }

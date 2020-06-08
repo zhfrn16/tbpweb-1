@@ -47,6 +47,7 @@ class Lecturer extends Model
 
     /** Relationship */
 
+
     public function user()
     {
         return $this->hasOne(User::class, 'id');
@@ -55,6 +56,11 @@ class Lecturer extends Model
     public function department()
     {
         return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function class_lecturers()
+    {
+        return $this->hasMany(ClassLecturer::class, 'lecturer_id', 'id');
     }
 
     /** Extendted Attribute */

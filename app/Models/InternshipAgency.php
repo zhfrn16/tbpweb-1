@@ -11,5 +11,5 @@ class InternshipAgency extends Model
     {
         return $this->hasMany(InternshipAgency::class, 'agency_id','id');
     }
-    
+
 }

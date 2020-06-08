@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Frontend\Intern;
 
 use App\Http\Controllers\Controller;
+use App\Models\Internship;
+use App\Models\Proposal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+
+
 
 use App\Models\Internship;
 use App\Models\Proposal;
@@ -24,10 +30,7 @@ class MyInternController extends Controller
         '=', 'internship_proposals.id')
         ->join('internship_agencies', 'internship_proposals.agency_id', '=',
         'internship_agencies.id')
-        ->select('internships.id','internships.title', 'internships.created_at', 'internship_agencies.name', 'internship_agencies.address')
-        ->where('student_id', $user_id)
-        ->get();
-        return view('klp02.index',compact('data'));
+
 
     }
 
@@ -45,12 +48,7 @@ class MyInternController extends Controller
  
     public function show($id)
     {
-        $user_id = auth()->user()->id;
-        $user = User::find($user_id);
-        $kpid=$id;
-        $data = Internship::where('id', $id)->get();
 
-       return view('klp02.showDetailKP',compact('data','kpid'));
     }
 
 
