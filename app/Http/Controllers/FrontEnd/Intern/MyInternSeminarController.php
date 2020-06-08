@@ -19,13 +19,36 @@ class MyInternSeminarController extends Controller
 
     public function create(request $id)
     {
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $kpid=$id;
+        $internships = Internship::all()->pluck('name', 'id');  
+        $rooms = Room::all()->pluck('name','id');
+        $data = Internship::where('id',$id)->get();
+        //dd($internships);
 
+        return view('klp02.createSeminar',compact('kpid','rooms','data'));  
     }
 
 
     public function store(Request $request)
     {
-  
+        $internships = Internship::where('student_id',auth()->user()->id)->first();
+        $internships->update($request->all());
+
+        
+
+
+        if($internships)
+        {
+            notify('success','Data Berhasil Ditambah');
+        }
+        else
+        {
+            notify('error','Data Gagal Ditambahkan');
+        }
+
+        return redirect('myinterns');
        
 
 
@@ -37,6 +60,22 @@ class MyInternSeminarController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $kpid=$id;
+        $data = Internship::where('id', $id)->get()->first();
+        $dosbing = DB::table('students')
+        ->join('student_semesters', 'students.id',
+        '=', 'student_semesters.student_id')
+        ->join('semesters', 'student_semesters.semester_id', '=',
+        'semesters.id')
+        ->join('classrooms', 'classrooms.semester_id', '=',
+        'semesters.id')
+        ->join('class_lecturers', 'classrooms.id', '=',
+        'class_lecturers.classroom_id')
+        ->join('lecturers', 'lecturers.id', '=',
+        'class_lecturers.lecturer_id')
+        ->where('student_id', $user_id)
+        ->get();
+    
+       return view('klp02.showSeminarDetail',compact('data','kpid','dosbing'));
 
     }
 
