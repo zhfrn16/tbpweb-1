@@ -1,69 +1,63 @@
 @extends('layouts.admin')
 
 @section('breadcrumb')
-    {!!  cui()->breadcrumb([
+    
+     {!!  cui()->breadcrumb([
         'Home' => route('home'),
-        ' Buat Seminar Baru' => '#'
+        'List Seminar KP' => route('frontend.myinterns.index'),
+        'Create Laporan Seminar KP' => '#'
+        
     ]) !!}
-@endsection
-@php
 
-@endphp
+@endsection
+
 
 @section('toolbar')
-    {{-- {!! cui()->toolbar_btn(route('frontend.myintern-seminars.create'), 'cil-playlist-add', 'Buat Seminar') !!}
-    {!! cui()->toolbar_btn(route('frontend.myintern-seminars.edit', [$kpid]), 'cil-fork ','Edit Seminar') !!}
-    {!! cui()->toolbar_btn(route('frontend.myintern-seminars.show', [$kpid]), 'cil-contact','Lihat Seminar') !!} --}}
+{!! cui()->toolbar_btn(route('frontend.myintern-seminars.audiences.create', [$kpid]), 'cil-people ','Tambah Peserta Seminar') !!}
+
 @endsection
+
+
+
 
 @section('content')
 
-    <div class="card">
-
-        <div class="card-header">
-            <strong>Form Buat Seminar KP</strong>
+ <div class='card'>
+        <div class='card-header'>
+            <strong>Tambah Form Pelaporan</strong>
         </div>
+  
 
-        <form action="route('frontend.myintern-seminars.store')" method="post">
-            <div class="card-body">
-                <table class="" >
-                    <thead class="thead-light">
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>Id</td>
-                            <td>:</td>
-                            <td><input type="text" name="id"></td>
-                        </tr>
-                        <tr>
-                            <td>judul</td>
-                            <td>:</td>
-                            <td><input type="text" name="judul"></td>
-                        </tr>
-                        <tr>
-                            <td>internship proposal id</td>
-                            <td>:</td>
-                            <td>
-                                <select name="id_prop" id="">
-                                    <option value="x">x</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            {{ html()->form('POST', route('backend.students.store'))->acceptsFiles()->open() }}
-                        </tr>
-
-                    </tbody>
-                    
-                </table>
+    <div class="card-body">
+    	<form action="{{route('frontend.myintern-seminars.store')}}" method="POST">
+    		@csrf
+   
+            <div class="form-group">
+    				<label class="form-label">Judul KP</label>
+    				<input type="text" class="form-control" placeholder="Masukkan Judul KP" name="title">
+  			</div>
+  			<div class="form-group">
+    				<label class="form-label">Tanggal Seminar</label>
+    				<input type="date" class="form-control" placeholder="Masukkan Tanggal" name="seminar_date">
+  			</div>
+  			<div class="form-group">
+    				<label class="form-label">Waktu Seminar</label>
+    				<input type="time" class="form-control" placeholder="Masukkan Waktu" name="seminar_tima">
+  			</div>
+  			<div class="form-group">
+    				<label class="form-label">Ruang Seminar</label>
+    				<select name="seminar_room_id" class="custom-select" id="inputGroupSelect04">
+                    @foreach ($rooms as $rooms)
+                        <option value="{{$rooms->id}}">{{$rooms->name}}</option>
+                    @endforeach
+                </select>
+  			</div>
+            <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Tambah Peserta</button>
             </div>
-        </form>
 
-        <div class="card-footer">
-
-        </div>
-
-    </div>
+    	</form>
+      </div>
+  </div>
 
 @endsection

@@ -14,6 +14,7 @@ use App\Models\Semester;
 use App\Models\Classroom;
 use App\Models\ClassLecturer;
 use App\Models\Lecturer;
+use App\Models\Room;
 
 
 class MyInternSeminarController extends Controller
@@ -33,10 +34,19 @@ class MyInternSeminarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+     public function create(request $id)
     {
-        //
-        return view('klp02.createSeminar');
+
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $kpid=$id;
+        $internships = Internship::all()->pluck('name', 'id');  
+        $rooms = Room::all();
+        $data = Internship::where('id',$id)->get();
+        //dd($internships);
+
+        return view('klp02.createSeminar',compact('kpid','rooms','data'));  
+
     }
 
     /**
@@ -47,7 +57,25 @@ class MyInternSeminarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $oke = Internship::where('student_id', $user_id)->get()->first();
+        $posts = new Internship;
+        $posts->internship_proposal_id = $oke->proposal->id;
+            //
+        $posts->status = 1;
+        $posts->title = $request->input('title');
+        $posts->student_id = $user_id;
+        $posts->seminar_date = $request->input('seminar_date');
+        $posts->seminar_time = $request->input('seminar_time');
+        $posts->seminar_room_id = $request->input('seminar_room_id');
+        $posts->save();
+
+        return redirect('myinterns');
+
+
+
     }
 
     /**
@@ -89,6 +117,16 @@ class MyInternSeminarController extends Controller
     public function edit($id)
     {
         //
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $kpid=$id;
+
+
+        $rooms = Room::all()->pluck('name','id');
+        $data = Internship::where('id',$id)->get();
+
+        
+        return view('klp02.edit', compact('rooms','kpid','data'));
     }
 
     /**
@@ -100,7 +138,34 @@ class MyInternSeminarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $kpid=$id;
+    
+        $file = $request->file('file_report');
+        if(isset($file)){
+         $tujuan_upload = 'files/intern-proposal';
+         $file->move($tujuan_upload,$file->getClientOriginalName());
+        }
+        
+        
+        $update= Internship::where('id',$id)->update([
+                'title' => $request->title,
+                'seminar_date' => $request->seminar_date,
+                'seminar_time' => $request->seminar_time,
+                'seminar_room_id' => $request->seminar_room_id,
+                'grade' => $request->grade,
+                'file_report' => $request->file_report]);
+
+            if($update)
+            {
+                notify('success', 'Berhasil mengedit data seminar');
+            }else{
+                notify('error', 'Gagal mengedit data seminar');
+            }
+        
+        return redirect()->route('frontend.myintern-seminars.show', [$kpid]);
+        
+
     }
 
     /**

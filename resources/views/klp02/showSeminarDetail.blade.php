@@ -29,9 +29,8 @@
                                 <td><b>Judul Laporan KP</b> </td>
                             <td>  : {{$data->title}}</td>
                             </tr>
-                            <tr>
-                                <td><b>Dosen Pembimbing</b> </td>
-                            <td> :
+                            <td><b>Dosen Pembimbing</b>  </td>
+                                <td>  :
                             @php
                                 $angka=1;
                             @endphp 
@@ -41,30 +40,36 @@
                             @php
                                 $angka++;
                             @endphp
-                            @endforeach</td>
+                            @endforeach </td>
                             </tr>
+                            
                             <tr>
-                                <td><b>Dosen Penguji</b>  </td> <td> :</td>
+                                <td><b>Dosen Penguji KP</b>  </td> <td> :</td>
                             </tr>
                             @php
                                 $noo=1;
                             @endphp
                                   
-                                    @foreach($data->proposal->members as $member)
-                                    <tr>
-                                            <td>&nbsp;&nbsp;{{$noo}}.&nbsp;{{$member->student->name }} <br>
+                                    @foreach($dosbing as $uji)
+                                         <tr>
+                                            <td>&nbsp;&nbsp;{{$noo}}.&nbsp;{{$uji->name }} <br>
                                            {{-- spasi paksa --}}
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                            <small style="margin: center">{{$member->student->nim }}<br></small>
+                                            <small style="margin: center">{{$uji->nip }}<br></small>
                                              </td>
-                                    </tr>
+                                            </tr>
                                     @php
                                         $noo++;
                                     @endphp
                                     @endforeach
-                                
-                                
+                                    <td>&nbsp;&nbsp;{{$noo}}.&nbsp; Fandy Akbar <br>
+                                        {{-- spasi paksa --}}
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                         <small style="margin: center">1509040504990002<br></small>
+                                          </td>
+                               
                        
                             <tr>
                                 <td><b>Tempat Pelaksanaan Seminar</b></td>
@@ -76,7 +81,7 @@
                             </tr>
                             <tr>
                                 <td>Tanggal </td>
-                                <td>  : {{$data->seminar_date}} </td>
+                                <td>  : {{date('j F Y', strtotime($data->seminar_date))}} </td>
                             </tr>
                             <tr>
                                 <td>Jam </td>

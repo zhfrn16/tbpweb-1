@@ -74,10 +74,7 @@ class MyInternSeminarAudience extends Controller
             return back()->with('success','Berhasil Menyimpan Data!');
         }
         
-
-        
-        
-        
+       
     }
 
     /**

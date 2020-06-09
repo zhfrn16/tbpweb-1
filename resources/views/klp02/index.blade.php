@@ -3,7 +3,7 @@
 @section('breadcrumb')
     {!!  cui()->breadcrumb([
         'Home' => route('home'),
-        'List Seminar KP' => '#'
+        'List KP' => '#'
     ]) !!}
 @endsection
 
@@ -12,7 +12,7 @@
     <div class="card">
 
         <div class="card-header">
-            <strong>List Seminar KP</strong>
+            <strong>List KP</strong>
         </div>
 
         <div class="card-body">
@@ -23,7 +23,7 @@
                     <th>Judul KP</th>
                     <th>Instansi/Perusahaan</th>
                     <th>Alamat</th>
-                    <th>Tanggal di buat</th>
+                    <th>Waktu Pelaksanaan KP</th>
                     <th>Status</th>
                     <th>Lihat</th>
                 </tr>
@@ -39,7 +39,7 @@
                                 <td>{{$row->title}}</td>
                                 <td>{{$row->name}}</td>
                                 <td>{{$row->address}}</td>
-                                <td>{{$row->created_at}}</td>
+                                <td>{{ date('j F Y', strtotime($row->start_at)) }} - {{ date('j F Y', strtotime($row->end_at)) }}</td>
                                 <td>{{$status_internship[$row->status]}}</td>
                                 <td>
                                     {!! cui()->btn_view(route('frontend.myinterns.show', [$row->id])) !!}

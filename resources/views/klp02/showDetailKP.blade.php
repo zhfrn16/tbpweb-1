@@ -35,15 +35,25 @@
                            
                        
                             <tr>
-                                <td>Judul Laporan KP </td>
+                                <td><b>Judul Laporan KP</b></td>
                             <td>  : {{$row->title}}</td>
                             </tr>
                             <tr>
-                                <td>Dosen Pembimbing </td>
-                                <td>  : </td>
+                                <td><b>Dosen Pembimbing</b>  </td>
+                                <td>  :
+                            @php
+                                $angka=1;
+                            @endphp 
+                            @foreach ($dosbing as $oke)
+                                
+                            {{$angka}}.&nbsp;{{$oke->name}}&nbsp;
+                            @php
+                                $angka++;
+                            @endphp
+                            @endforeach </td>
                             </tr>
                             <tr>
-                                <td>Peserta KP  </td> <td> :</td>
+                                <td> <b>Peserta KP </b> </td> <td> :</td>
                             </tr>
                             @php
                                 $noo=1;
@@ -51,6 +61,7 @@
                                   
                                     @foreach($row->proposal->members as $member)
                                     <tr>
+                                            
                                             <td>&nbsp;&nbsp;{{$noo}}.&nbsp;{{$member->student->name }} <br>
                                            {{-- spasi paksa --}}
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -66,15 +77,15 @@
                                 
                        
                             <tr>
-                                <td>Tempat Pelaksanaan KP </td>
+                                <td><b>Tempat Pelaksanaan KP</b> </td>
                                 <td>  : {{$row->proposal->agency->name}} </td>
                             </tr>
                             <tr>
-                                <td>Waku Pelaksanaan KP </td>
-                            <td>  :  {{$row->start_at}} s/d {{$row->end_at}}</td>
+                                <td><b>Waku Pelaksanaan KP </b></td>
+                            <td>  :  {{date('j F Y', strtotime($row->start_at))}} s/d {{date('j F Y', strtotime($row->end_at))}}</td>
                             </tr>
                             <tr>
-                                <td>Pembimbing KP Lapangan </td>
+                                <td><b>Pembimbing KP Lapangan</b> </td>
                                 <td>  : {{$row->field_advisor_name}} </td>
                             </tr>
                         

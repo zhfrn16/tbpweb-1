@@ -45,6 +45,7 @@ class Student extends Model
     {
         return $this->hasMany(StudentSemester::class, 'student_id', 'id');
     }
+
     /** Extended Attribute */
 
     public function getEmailAttribute($value)
