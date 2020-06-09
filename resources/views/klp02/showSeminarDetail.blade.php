@@ -29,6 +29,10 @@
                                 <td><b>Judul Laporan KP</b> </td>
                             <td>  : {{$data->title}}</td>
                             </tr>
+                            <tr>
+                                <td><b>Penyaji</b> </td>
+                            <td>  : {{$mhs->name}}</td>
+                            </tr>
                             <td><b>Dosen Pembimbing</b>  </td>
                                 <td>  :
                             @php
