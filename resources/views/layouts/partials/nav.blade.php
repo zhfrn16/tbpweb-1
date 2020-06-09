@@ -93,7 +93,8 @@
 
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('frontend.myinterns.index') }}">
-=
+                <i class="cil-address-book c-sidebar-nav-icon"></i>
+                Seminar KP
             </a>
         </li>
 
