@@ -89,6 +89,7 @@ class MyInternSeminarController extends Controller
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $kpid=$id;
+        $mhs= Student::where('id', $user_id)->get()->first();
         $data = Internship::where('id', $id)->get()->first();
         $dosbing = DB::table('students')
         ->join('student_semesters', 'students.id',
@@ -104,7 +105,7 @@ class MyInternSeminarController extends Controller
         ->where('student_id', $user_id)
         ->get();
     
-       return view('klp02.showSeminarDetail',compact('data','kpid','dosbing'));
+       return view('klp02.showSeminarDetail',compact('data','kpid','dosbing','mhs'));
         
     }
 
