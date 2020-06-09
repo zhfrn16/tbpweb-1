@@ -13,7 +13,7 @@
 
     <div class="card-body">
         
-        <form action="./" method="POST">
+        <form action="../audiences" method="POST">
             @csrf
             <div class="form-group">
                 @foreach ($datas as $row)
@@ -44,16 +44,24 @@
             {{-- <h5>List Peserta Yang Sudah Ditambahkan</h5> --}}
             <thead class="thead-light">
                 <tr>
+               
+                    
+                    <th scope="col">No. </th>
                     <th scope="col">NIM</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Aksi</th>
                 </tr>
+               
             </thead>
 
             <tbody>
+                @php
+                $angka=1;
+                 @endphp
 
                 @foreach ($audiences as $row)
                     <tr>
+                        <td>{{$angka}}</td>
                         <td>{{$row->nim}}</td>
                         <td>{{$row->name}}</td>
                         
@@ -70,6 +78,9 @@
                         </td>
                         
                     </tr>
+                    @php
+                    $angka++;
+                @endphp
                 @endforeach
             </tbody>
         </table> 

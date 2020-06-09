@@ -4,62 +4,92 @@ namespace App\Http\Controllers\Frontend\Intern;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Internship;
+use App\Models\Proposal;
+use App\Models\Student;
+use App\Models\StudentSemester;
+use App\Models\Semester;
+use App\Models\Classroom;
+use App\Models\ClassLecturer;
+use App\Models\Lecturer;
+use App\Models\Room;
 
 
 class MyInternSeminarController extends Controller
 {
-
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         //
     }
 
-
-    public function create(request $id)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+     public function create(request $id)
     {
+
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $kpid=$id;
         $internships = Internship::all()->pluck('name', 'id');  
-        $rooms = Room::all()->pluck('name','id');
+        $rooms = Room::all();
         $data = Internship::where('id',$id)->get();
         //dd($internships);
 
         return view('klp02.createSeminar',compact('kpid','rooms','data'));  
+
     }
 
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        $internships = Internship::where('student_id',auth()->user()->id)->first();
-        $internships->update($request->all());
 
-        
-
-
-        if($internships)
-        {
-            notify('success','Data Berhasil Ditambah');
-        }
-        else
-        {
-            notify('error','Data Gagal Ditambahkan');
-        }
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        $oke = Internship::where('student_id', $user_id)->get()->first();
+        $posts = new Internship;
+        $posts->internship_proposal_id = $oke->proposal->id;
+            //
+        $posts->status = 1;
+        $posts->title = $request->input('title');
+        $posts->student_id = $user_id;
+        $posts->seminar_date = $request->input('seminar_date');
+        $posts->seminar_time = $request->input('seminar_time');
+        $posts->seminar_room_id = $request->input('seminar_room_id');
+        $posts->save();
 
         return redirect('myinterns');
-       
+
 
 
     }
 
-
+    /**
+     * Display the specified resource.
+     * Test
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $kpid=$id;
+        $mhs= Student::where('id', $user_id)->get()->first();
         $data = Internship::where('id', $id)->get()->first();
         $dosbing = DB::table('students')
         ->join('student_semesters', 'students.id',
@@ -75,14 +105,19 @@ class MyInternSeminarController extends Controller
         ->where('student_id', $user_id)
         ->get();
     
-       return view('klp02.showSeminarDetail',compact('data','kpid','dosbing'));
-
+       return view('klp02.showSeminarDetail',compact('data','kpid','dosbing','mhs'));
+        
     }
 
-
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
-
+        //
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
         $kpid=$id;
@@ -93,10 +128,15 @@ class MyInternSeminarController extends Controller
 
         
         return view('klp02.edit', compact('rooms','kpid','data'));
-
     }
 
-
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
 
@@ -129,9 +169,14 @@ class MyInternSeminarController extends Controller
 
     }
 
- 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
-
+        //
     }
 }
