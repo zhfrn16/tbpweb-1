@@ -15,13 +15,31 @@
         
         <form action="../audiences" method="POST">
             @csrf
+            <h5 class="">Daftar Peserta Seminar</h5>
             <div class="form-group">
                 @foreach ($datas as $row)
                     {{-- <label for="">ID INTERNSHIP</label> --}}
                     <input type="text" value="{{$row->id}}" name="internship_id" hidden></>
                 @endforeach
             </div>
-            
+            <div class="card-body">
+                <div class="form-group">
+                    <div><strong>Judul Laporan KP</strong></div>
+                    <div>{{ $internships->title }}</div>
+                </div>
+                <div class="form-group">
+                    <div><strong>Penyaji</strong></div>
+                    <div>{{ $internships->student->name }}</div>
+                </div>
+                <div class="form-group">
+                    <div><strong>Tempat</strong></div>
+                    <div>{{$internships->room->name}} - {{$internships->room->building->name}}</div>
+                </div>
+                <div class="form-group">
+                    <div><strong>Waktu</strong></div>
+                    <div>{{date('j F Y', strtotime($internships->seminar_date))}} Jam {{$internships->seminar_time}} WIB</div>
+                </div>
+            </div>
             <h5 class="">Pilih Peserta Seminar</h5>
             <div class="input-group">
                 
@@ -32,7 +50,7 @@
                 </select>
 
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit">Tambah Peserta</button>
+                    <button class="btn btn-primary" type="submit">Tambah Peserta</button>
                 </div>
             </div>
                 

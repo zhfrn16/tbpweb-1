@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\InternshipAudience;
 use App\Models\User;
+use App\Models\Internship;
 
 class MyInternSeminarAudience extends Controller
 {
@@ -29,7 +30,7 @@ class MyInternSeminarAudience extends Controller
     {   
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-
+        $internships = Internship::where('student_id',auth()->user()->id)->first();
         $datas = DB::table('internships')->where('id',$id)->get();
         $internaudience = DB::table('internship_audiences')->get();
         $audiences = DB::table('students')
@@ -41,7 +42,7 @@ class MyInternSeminarAudience extends Controller
 
         $students = DB::table('students')->get();
 
-        return view('klp02.create_audience',compact('datas','students','audiences'));
+        return view('klp02.create_audience',compact('datas','students','audiences','internships'));
         
         
     }
@@ -55,6 +56,7 @@ class MyInternSeminarAudience extends Controller
     public function store(Request $request)
     {
         
+
         $internaudience = DB::table('internship_audiences')->get();
         $masuk=true;
         foreach ($internaudience as $row) {

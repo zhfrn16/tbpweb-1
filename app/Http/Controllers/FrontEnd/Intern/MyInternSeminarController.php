@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Internship;
+use App\Models\InternshipAudience;
 use App\Models\Proposal;
 use App\Models\Student;
 use App\Models\StudentSemester;
@@ -15,6 +16,7 @@ use App\Models\Classroom;
 use App\Models\ClassLecturer;
 use App\Models\Lecturer;
 use App\Models\Room;
+use Validator;
 
 
 class MyInternSeminarController extends Controller
@@ -39,13 +41,14 @@ class MyInternSeminarController extends Controller
 
         $user_id = auth()->user()->id;
         $user = User::find($user_id);
-        $kpid=$id;
+        
         $internships = Internship::all()->pluck('name', 'id');  
         $rooms = Room::all();
-        $data = Internship::where('id',$id)->get();
-        //dd($internships);
+        $data = Internship::where('student_id',$user_id)->get();
+        $datas=$data->first();
+        $kpid=$datas->id;
 
-        return view('klp02.createSeminar',compact('kpid','rooms','data'));  
+        return view('klp02.createSeminar',compact('kpid','rooms','data', 'datas'));  
 
     }
 
@@ -58,22 +61,69 @@ class MyInternSeminarController extends Controller
     public function store(Request $request)
     {
 
-        $user_id = auth()->user()->id;
-        $user = User::find($user_id);
-        $oke = Internship::where('student_id', $user_id)->get()->first();
-        $posts = new Internship;
-        $posts->internship_proposal_id = $oke->proposal->id;
-            //
-        $posts->status = 1;
-        $posts->title = $request->input('title');
-        $posts->student_id = $user_id;
-        $posts->seminar_date = $request->input('seminar_date');
-        $posts->seminar_time = $request->input('seminar_time');
-        $posts->seminar_room_id = $request->input('seminar_room_id');
-        $posts->save();
+        $internships = Internship::where('student_id',auth()->user()->id)->first();
+        $this->validate($request, Internship::$validation_rules);
+        // Laporan
+        if($request->hasFile('file_report')){
+            $folder = 'file_report';
+            $namamhs=$internships->student->name;
+            $filename1 = $internships->id . '_'. $namamhs . '.' . $request->file('file_report')->getClientOriginalExtension();
+            $filepath = $request->file_report->storeAs($folder,$filename1);
+            $update= Internship::where('id',$internships->id)->update([
+                'file_report' => $filename1
+                ]);
+            notify('success', 'File Laporan Successfully Uploaded');
+        }
+        // Logbook
+        if($request->hasFile('file_logbook')){
+            $folder = 'file_logbook';
+            $namamhs=$internships->student->name;
+            $filename2 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_logbook')->getClientOriginalExtension();
+            $filepath = $request->file_logbook->storeAs($folder,$filename2);
+            $update= Internship::where('id',$internships->id)->update([
+                'file_logbook' => $filename2
+                ]);
+            notify('success', 'File Logbook Successfully Uploaded');
+        }
+        //Penilaian Lapangan
+        if($request->hasFile('file_field_grade')){
+            $folder = 'file_field_grade';
+            $namamhs=$internships->student->name;
+            $filename3 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_field_grade')->getClientOriginalExtension();
+            $filepath = $request->file_field_grade->storeAs($folder,$filename3);
+            $update= Internship::where('id',$internships->id)->update([
+                'file_field_grade' => $filename3
+                ]);
+            notify('success', 'File field grade Successfully Uploaded');
+        }
+        //Pengajuan Laporan
+        if($request->hasFile('file_report_receipt')){
+            $folder = 'file_report_receipt';
+            $namamhs=$internships->student->name;
+            $filename4 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_report_receipt')->getClientOriginalExtension();
+            $filepath = $request->file_report_receipt->storeAs($folder,$filename4);
+            $update= Internship::where('id',$internships->id)->update([
+                'file_report_receipt' => $filename4
+                ]);
+            notify('success', 'File Report Receipt Successfully Uploaded');
+        }
+
+        $update= Internship::where('id',$internships->id)->update([
+            'title' => $request->title,
+            'seminar_date' => $request->seminar_date,
+            'seminar_time' => $request->seminar_time,
+            'seminar_room_id' => $request->seminar_room_id,
+            'grade' => $request->grade,
+            ]);
+
+        if($update)
+        {
+            notify('success', 'Berhasil Tambah data seminar');
+        }else{
+            notify('error', 'Gagal Tambah data seminar');
+        }
 
         return redirect('myinterns');
-
 
 
     }
@@ -140,22 +190,60 @@ class MyInternSeminarController extends Controller
     public function update(Request $request, $id)
     {
 
-        $kpid=$id;
-    
-        $file = $request->file('file_report');
-        if(isset($file)){
-         $tujuan_upload = 'files/intern-proposal';
-         $file->move($tujuan_upload,$file->getClientOriginalName());
+        $internships = Internship::where('student_id',auth()->user()->id)->first();
+        $this->validate($request, Internship::$validation_rules);
+        // Laporan
+        if($request->hasFile('file_report')){
+            $folder = 'file_report';
+            $namamhs=$internships->student->name;
+            $filename1 = $internships->id . '_'. $namamhs . '.' . $request->file('file_report')->getClientOriginalExtension();
+            $filepath = $request->file_report->storeAs($folder,$filename1);
+            $update= Internship::where('id',$internships->id)->update([
+                'file_report' => $filename1
+                ]);
+            notify('success', 'File Laporan Successfully Uploaded');
         }
-        
-        
-        $update= Internship::where('id',$id)->update([
-                'title' => $request->title,
-                'seminar_date' => $request->seminar_date,
-                'seminar_time' => $request->seminar_time,
-                'seminar_room_id' => $request->seminar_room_id,
-                'grade' => $request->grade,
-                'file_report' => $request->file_report]);
+        // Logbook
+        if($request->hasFile('file_logbook')){
+            $folder = 'file_logbook';
+            $namamhs=$internships->student->name;
+            $filename2 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_logbook')->getClientOriginalExtension();
+            $filepath = $request->file_logbook->storeAs($folder,$filename2);
+            $update= Internship::where('id',$internships->id)->update([
+                'file_logbook' => $filename2
+                ]);
+            notify('success', 'File Logbook Successfully Uploaded');
+        }
+        //Penilaian Lapangan
+        if($request->hasFile('file_field_grade')){
+            $folder = 'file_field_grade';
+            $namamhs=$internships->student->name;
+            $filename3 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_field_grade')->getClientOriginalExtension();
+            $filepath = $request->file_field_grade->storeAs($folder,$filename3);
+            $update= Internship::where('id',$internships->id)->update([
+                'file_field_grade' => $filename3
+                ]);
+            notify('success', 'File field grade Successfully Uploaded');
+        }
+        //Pengajuan Laporan
+        if($request->hasFile('file_report_receipt')){
+            $folder = 'file_report_receipt';
+            $namamhs=$internships->student->name;
+            $filename4 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_report_receipt')->getClientOriginalExtension();
+            $filepath = $request->file_report_receipt->storeAs($folder,$filename4);
+            $update= Internship::where('id',$internships->id)->update([
+                'file_report_receipt' => $filename4
+                ]);
+            notify('success', 'File Report Receipt Successfully Uploaded');
+        }
+
+        $update= Internship::where('id',$internships->id)->update([
+            'title' => $request->title,
+            'seminar_date' => $request->seminar_date,
+            'seminar_time' => $request->seminar_time,
+            'seminar_room_id' => $request->seminar_room_id,
+            'grade' => $request->grade,
+            ]);
 
             if($update)
             {
@@ -164,7 +252,7 @@ class MyInternSeminarController extends Controller
                 notify('error', 'Gagal mengedit data seminar');
             }
         
-        return redirect()->route('frontend.myintern-seminars.show', [$kpid]);
+        return redirect()->route('frontend.myintern-seminars.show', [$id]);
         
 
     }

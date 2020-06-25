@@ -13,7 +13,7 @@
 @endphp
 
 @section('toolbar')
-{!! cui()->toolbar_btn(route('frontend.myintern-seminars.audiences.create', [$kpid]), 'cil-people ','Tambah Peserta Seminar') !!}
+{!! cui()->toolbar_btn(route('frontend.myintern-seminars.audiences.create', [$kpid]), 'cil-people ','Kelola Peserta Seminar') !!}
 
 @endsection
 
@@ -24,7 +24,7 @@
                 <div class="col-md-8">
                     <div class="card">
 
-                    {{ html()->modelForm($kpid, 'PATCH', route('frontend.myintern-seminars.update', [$kpid]))->open()}}
+                    {{ html()->modelForm($kpid, 'put', route('frontend.myintern-seminars.update', [$kpid]))->acceptsFiles()->open()}}
                         {{--CARD HEADER --}}
                         <div class="card-header">
                             <strong><i class="cil-pencil"></i> Edit Seminar</strong>
