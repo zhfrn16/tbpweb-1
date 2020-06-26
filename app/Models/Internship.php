@@ -37,6 +37,10 @@ class Internship extends Model
         'seminar_date' => 'required|date',
         'seminar_time' => 'required',
         'grade' => 'required|min:5|max:400',
+        'file_report' => 'mimes:pdf,doc,docx',
+        'file_logbook' => 'mimes:pdf,doc,docx',
+        'file_field_grade' => 'mimes:pdf,doc,docx',
+        'file_report_receipt' => 'mimes:pdf,doc,docx',
     ];
 
    

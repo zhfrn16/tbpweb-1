@@ -249,7 +249,7 @@ class MyInternSeminarController extends Controller
             {
                 notify('success', 'Berhasil mengedit data seminar');
             }else{
-                notify('error', 'Gagal mengedit data seminar');
+                notify('warning', 'Tidak Ada perubahan selain upload file');
             }
         
         return redirect()->route('frontend.myintern-seminars.show', [$id]);
