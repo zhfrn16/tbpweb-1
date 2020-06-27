@@ -63,7 +63,7 @@
     @enderror
 </div>
 <div class="form-group">
-    <label class="form-label" for="file_report_receipt">Upload Pengajuan Seminar</label>
+    <label class="form-label" for="file_report_receipt">Upload Bukti Penyerahan Laporan</label>
     {{ html()->file('file_report_receipt')->class(["form-control", "is-invalid" => $errors->has('file_report_receipt')])->id('file_report_receipt')}}
     @error('file_report_receipt')
     <div class="invalid-feedback">{{ $errors->first('file_report_receipt') }}</div>

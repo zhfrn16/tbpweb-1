@@ -2,11 +2,12 @@
 
 return[
     'status_internship' =>[
-        0=>'Belum',
-        1=>'Diusulkan',
-        2=>'Disetujui',
-        3=>'Ditolak',
-        4=>'Selesai'
+        0=>'Pengajuan Proposal',
+        1=>'Sedang KP',
+        2=>'Bimbingan KP',
+        3=>'Seminar KP',
+        4=>'Selesai KP',
+        5=>'Batal'
     ]
     ];
 
