@@ -114,7 +114,9 @@
                    </tr>
                    <td>Bukti Penyerahan Laporan</td>
                                    @if (isset($row->file_report_receipt))                    
+
                                    <td><a href="{{ asset('storage/file_report_receipt/'. $row->file_report_receipt) }}">Download</a> </td>
+
                                 @else
                                 <td> Kosong </td>   
                                @endif
@@ -122,7 +124,9 @@
                     <tr>
                         <td>Catatan Penilaian Lapangan </td>
                         @if (isset($row->file_field_grade))                    
+
                         <td><a href="{{ asset('storage/file_field_grade/'. $row->file_field_grade) }}">Download</a> </td>
+
                      @else
                      <td> Kosong </td>   
                     @endif
