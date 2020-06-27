@@ -39,9 +39,15 @@
                                 <td>{{$row->address}}</td>
                                 <td>{{ date('j F Y', strtotime($row->start_at)) }} - {{ date('j F Y', strtotime($row->end_at)) }}</td>
                                 <td>{{$status_internship[$row->status]}}</td>
+                                @if ($row->status>=3)
                                 <td>
                                     {!! cui()->btn_view(route('frontend.myinterns.show', [$row->id])) !!}
                                 </td>
+                                @else
+                                    <td>
+                                        Aksi Belum Dapat Dilakukan
+                                    </td>
+                                @endif
                             </tr>
                         
                          

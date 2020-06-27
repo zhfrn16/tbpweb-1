@@ -94,7 +94,7 @@
     <div class="col-md-3">
         <div class="form-group">
             <div class="card-header">
-                <strong><i class="cil-user"></i> List Berkas</strong>
+                <strong><i class="cil-list"></i> List Berkas</strong>
             </div>
 
             <div class="card-footer">
@@ -107,7 +107,7 @@
                        
                        <td>Laporan </td>
                        @if (isset($row->file_report))                    
-                           <td><a href="{{ asset('../storage/app/file_report/'. $row->file_report) }}">Download</a> </td>
+                           <td><a href="{{ asset('storage/app/file_report/'. $row->file_report) }}">Download</a> </td>
                         @else
                         <td> Kosong </td>   
                        @endif
