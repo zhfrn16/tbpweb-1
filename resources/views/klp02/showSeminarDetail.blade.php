@@ -157,7 +157,9 @@
                                    
                                 <td>Laporan </td>
                                 @if (isset($data->file_report))                    
-                                    <td><a href="{{ asset('storage/app/file_report/'. $data->file_report) }}">Download</a> </td>
+
+                                    <td><a href="{{ asset('storage/file_report/'. $data->file_report) }}">Download</a> </td>
+
                                  @else
                                  <td> Kosong </td>   
                                 @endif
@@ -165,7 +167,9 @@
                                <tr>
                                    <td>Sertifikat </td>
                                    @if (isset($data->file_certificate))                    
-                                    <td><a href="{{ asset('storage/app/file_certificate/'. $data->file_certificate) }}">Download</a> </td>
+
+                                    <td><a href="{{ asset('storage/file_certificate/'. $data->file_certificate) }}">Download</a> </td>
+
                                  @else
                                  <td> Kosong </td>   
                                 @endif
@@ -173,7 +177,9 @@
                                <tr>
                                    <td>Absen Seminar</td>
                                    @if (isset($data->file_seminar_attendance))                    
-                                   <td><a href="{{ asset('storage/app/file_seminar_attendance/'. $data->file_seminar_attendance) }}">Download</a> </td>
+
+                                   <td><a href="{{ asset('storage/file_seminar_attendance/'. $data->file_seminar_attendance) }}">Download</a> </td>
+
                                 @else
                                 <td> Kosong </td>   
                                @endif
@@ -183,7 +189,9 @@
                                <tr>
                                    <td>Catatan Penilaian Lapangan </td>
                                    @if (isset($data->file_field_grade))                    
-                                   <td><a href="{{ asset('storage/app/file_field_grade/'. $data->file_field_grade) }}">Download</a> </td>
+
+                                   <td><a href="{{ asset('storage/file_field_grade/'. $data->file_field_grade) }}">Download</a> </td>
+
                                 @else
                                 <td> Kosong </td>   
                                @endif
@@ -191,7 +199,9 @@
                                <tr>
                                    <td>Logbook</td>
                                    @if (isset($data->file_logbook))                    
-                                   <td><a href="{{ asset('storage/app/file_logbook/'. $data->file_logbook) }}">Download</a> </td>
+
+                                   <td><a href="{{ asset('storage/file_logbook/'. $data->file_logbook) }}">Download</a> </td>
+
                                 @else
                                 <td> Kosong </td>   
                                @endif
@@ -199,7 +209,9 @@
                                <tr>
                                 <td>Laporan Hasil Seminar </td>
                                 @if (isset($data->file_seminar_off_report))                    
-                                <td><a href="{{ asset('storage/app/file_seminar_off_report/'. $data->file_seminar_off_report) }}">Download</a> </td>
+
+                                <td><a href="{{ asset('storage/file_seminar_off_report/'. $data->file_seminar_off_report) }}">Download</a> </td>
+
                              @else
                              <td> Kosong </td>   
                             @endif
