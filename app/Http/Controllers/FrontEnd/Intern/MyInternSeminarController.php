@@ -68,7 +68,7 @@ class MyInternSeminarController extends Controller
             $folder = 'file_report';
             $namamhs=$internships->student->name;
             $filename1 = $internships->id . '_'. $namamhs . '.' . $request->file('file_report')->getClientOriginalExtension();
-            $filepath = $request->file_report->storeAs($folder,$filename1);
+            $filepath = $request->file_report->storeAs('public/'.$folder,$filename1);
             $update= Internship::where('id',$internships->id)->update([
                 'file_report' => $filename1
                 ]);
@@ -79,7 +79,7 @@ class MyInternSeminarController extends Controller
             $folder = 'file_logbook';
             $namamhs=$internships->student->name;
             $filename2 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_logbook')->getClientOriginalExtension();
-            $filepath = $request->file_logbook->storeAs($folder,$filename2);
+            $filepath = $request->file_logbook->storeAs('public/'.$folder,$filename2);
             $update= Internship::where('id',$internships->id)->update([
                 'file_logbook' => $filename2
                 ]);
@@ -90,7 +90,7 @@ class MyInternSeminarController extends Controller
             $folder = 'file_field_grade';
             $namamhs=$internships->student->name;
             $filename3 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_field_grade')->getClientOriginalExtension();
-            $filepath = $request->file_field_grade->storeAs($folder,$filename3);
+            $filepath = $request->file_field_grade->storeAs('public/'.$folder,$filename3);
             $update= Internship::where('id',$internships->id)->update([
                 'file_field_grade' => $filename3
                 ]);
@@ -101,7 +101,7 @@ class MyInternSeminarController extends Controller
             $folder = 'file_report_receipt';
             $namamhs=$internships->student->name;
             $filename4 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_report_receipt')->getClientOriginalExtension();
-            $filepath = $request->file_report_receipt->storeAs($folder,$filename4);
+            $filepath = $request->file_report_receipt->storeAs('public/'.$folder,$filename4);
             $update= Internship::where('id',$internships->id)->update([
                 'file_report_receipt' => $filename4
                 ]);
@@ -198,7 +198,7 @@ class MyInternSeminarController extends Controller
             $folder = 'file_report';
             $namamhs=$internships->student->name;
             $filename1 = $internships->id . '_'. $namamhs . '.' . $request->file('file_report')->getClientOriginalExtension();
-            $filepath = $request->file_report->storeAs($folder,$filename1);
+            $filepath = $request->file_report->storeAs('public/'.$folder,$filename1);
             $updating= Internship::where('id',$internships->id)->update([
                 'file_report' => $filename1
                 ]);
@@ -209,7 +209,7 @@ class MyInternSeminarController extends Controller
             $folder = 'file_logbook';
             $namamhs=$internships->student->name;
             $filename2 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_logbook')->getClientOriginalExtension();
-            $filepath = $request->file_logbook->storeAs($folder,$filename2);
+            $filepath = $request->file_logbook->storeAs('public/'.$folder,$filename2);
             $updating= Internship::where('id',$internships->id)->update([
                 'file_logbook' => $filename2
                 ]);
@@ -220,7 +220,7 @@ class MyInternSeminarController extends Controller
             $folder = 'file_field_grade';
             $namamhs=$internships->student->name;
             $filename3 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_field_grade')->getClientOriginalExtension();
-            $filepath = $request->file_field_grade->storeAs($folder,$filename3);
+            $filepath = $request->file_field_grade->storeAs('public/'.$folder,$filename3);
             $updating= Internship::where('id',$internships->id)->update([
                 'file_field_grade' => $filename3
                 ]);
@@ -231,7 +231,7 @@ class MyInternSeminarController extends Controller
             $folder = 'file_report_receipt';
             $namamhs=$internships->student->name;
             $filename4 = $internships->id . '_'. $namamhs .'_'.$folder. '.' . $request->file('file_report_receipt')->getClientOriginalExtension();
-            $filepath = $request->file_report_receipt->storeAs($folder,$filename4);
+            $filepath = $request->file_report_receipt->storeAs('public/'.$folder,$filename4);
             $updating= Internship::where('id',$internships->id)->update([
                 'file_report_receipt' => $filename4
                 ]);
@@ -250,7 +250,7 @@ class MyInternSeminarController extends Controller
             {
                 notify('success', 'Berhasil mengedit data seminar ');
             }else{
-                notify('error', 'gagal edit  perubahan ');
+                notify('error', 'Tidak Ada  perubahan ');
             }
         
         return redirect()->route('frontend.myintern-seminars.show', [$id]);
