@@ -112,7 +112,7 @@
                         <td> Kosong </td>   
                        @endif
                    </tr>
-                   <td>Laporan Pengajuan Seminar</td>
+                   <td>Bukti Penyerahan Laporan</td>
                                    @if (isset($row->file_report_receipt))                    
                                    <td><a href="{{ asset('../storage/app/file_report_receipt/'. $row->file_report_receipt) }}">Download</a> </td>
                                 @else
